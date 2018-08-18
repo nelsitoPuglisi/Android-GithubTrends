@@ -1,0 +1,8 @@
+title Load Trending Repos
+
+TrendingReposView->TrendingReposUseCase: Creates Use Case
+TrendingReposUseCase --> TrendingReposView: LoadingViewState.render(view)
+TrendingReposUseCase -> TrendingReposRepository: request.trendingRepos(Rx)
+note right of TrendingReposRepository: Do all request needed
+TrendingReposRepository ->TrendingReposUseCase: Request Result
+TrendingReposUseCase -> TrendingReposView: ResultsViewState.render(view)
