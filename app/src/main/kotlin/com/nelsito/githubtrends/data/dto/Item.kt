@@ -3,6 +3,7 @@ package com.nelsito.githubtrends.data.dto
 import com.google.gson.annotations.SerializedName
 import com.nelsito.githubtrends.data.dto.License
 import com.nelsito.githubtrends.data.dto.Owner
+import com.nelsito.githubtrends.model.GithubRepo
 
 data class Item(
         @SerializedName("id") val id: Int,
@@ -79,3 +80,7 @@ data class Item(
         @SerializedName("default_branch") val defaultBranch: String,
         @SerializedName("score") val score: Int
 )
+
+fun Item.transform() : GithubRepo {
+    return GithubRepo(owner.transform(), name, id.toString())
+}

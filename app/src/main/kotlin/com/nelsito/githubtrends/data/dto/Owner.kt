@@ -1,6 +1,7 @@
 package com.nelsito.githubtrends.data.dto
 
 import com.google.gson.annotations.SerializedName
+import com.nelsito.githubtrends.model.GithubUser
 
 data class Owner(
         @SerializedName("login") val login: String,
@@ -22,3 +23,7 @@ data class Owner(
         @SerializedName("type") val type: String,
         @SerializedName("site_admin") val siteAdmin: Boolean
 )
+
+fun Owner.transform() : GithubUser {
+    return GithubUser(login, id.toString(), avatarUrl)
+}

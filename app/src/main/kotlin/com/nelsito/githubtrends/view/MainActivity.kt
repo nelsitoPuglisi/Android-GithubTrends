@@ -6,7 +6,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.nelsito.githubtrends.R
 import com.nelsito.githubtrends.data.GithubApi
-import com.nelsito.githubtrends.model.TrendingGithub
+import com.nelsito.githubtrends.model.GithubRepo
 import com.nelsito.githubtrends.usecase.TrendingGithubList
 import com.nelsito.githubtrends.usecase.TrendingGithubListView
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,10 +18,10 @@ class MainActivity : AppCompatActivity(), TrendingGithubListView {
         progressBar.visibility = View.VISIBLE
     }
 
-    override fun showItems(trendingGithub: TrendingGithub) {
+    override fun showItems(repos: List<GithubRepo>) {
        runOnUiThread {
            progressBar.visibility = View.GONE
-           adapter.setItems(trendingGithub.repos)
+           adapter.setItems(repos)
            recyclerView.visibility = View.VISIBLE
        }
     }

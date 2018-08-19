@@ -1,9 +1,9 @@
 package com.nelsito.githubtrends.usecase
 
-import com.nelsito.githubtrends.model.TrendingGithub
+import com.nelsito.githubtrends.model.GithubRepo
 import io.reactivex.Observable
 
 
 interface TrendingGithubListRepository {
-    fun load(): Observable<TrendingGithub>
+    fun load(): Observable<List<GithubRepo>>
 }

@@ -1,10 +1,9 @@
 package com.nelsito.githubtrends.usecase
 
-import com.nelsito.githubtrends.model.TrendingGithub
-import io.reactivex.Observable
+import com.nelsito.githubtrends.model.GithubRepo
 
 interface TrendingGithubListView {
     fun showLoading()
-    fun showItems(trendingGithub: TrendingGithub)
+    fun showItems(repos: List<GithubRepo>)
     fun showError(it: Throwable)
 }
