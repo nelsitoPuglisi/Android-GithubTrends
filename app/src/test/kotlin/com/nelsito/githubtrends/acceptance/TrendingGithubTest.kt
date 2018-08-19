@@ -3,7 +3,6 @@ package com.nelsito.githubtrends.acceptance
 import com.nelsito.githubtrends.acceptance.stubs.TrendingGithubListViewStub
 import com.nelsito.githubtrends.model.GithubRepo
 import com.nelsito.githubtrends.model.GithubUser
-import com.nelsito.githubtrends.model.TrendingGithub
 import com.nelsito.githubtrends.usecase.TrendingGithubList
 import com.nelsito.githubtrends.usecase.TrendingGithubListRepository
 import io.reactivex.Observable
@@ -48,7 +47,7 @@ class TrendingGithubTest {
         val repos = listOf(
                 GithubRepo(GithubUser("userA", "userId1", ""), "repoA", "repoId1"),
                 GithubRepo(GithubUser("userB", "userId2", ""), "repoB", "repoId2"))
-        given(repository.load()).willReturn(Observable.just(TrendingGithub(repos)))
+        given(repository.load()).willReturn(Observable.just(repos))
         var view = TrendingGithubListViewStub()
 
         // When
@@ -58,7 +57,6 @@ class TrendingGithubTest {
         // Then
         val expected =
                 "Trending Github List Screen\n" +
-                        "size: 2\n" +
                         "userA\\repoA\n" +
                         "userB\\repoB\n"
 
