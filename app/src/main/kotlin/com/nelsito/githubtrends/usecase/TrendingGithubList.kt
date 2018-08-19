@@ -21,28 +21,4 @@ class TrendingGithubList(val view: TrendingGithubListView,
             .observeOn(observeScheduler)
             .subscribe()
     }
-
-    /*init {
-        view.loadFirstPage()
-                .doOnNext {
-                    _ -> Log.d("", "")
-                }
-                .flatMap {
-                    repository.load()
-                }
-                .map {
-                    TrendingGithubListResultViewState(it) as TrendingGithubListViewState
-                }
-                .startWith {
-                    TrendingGithubListLoadViewState()
-                }
-                .onErrorReturn {
-                    TrendingGithubListErrorViewState(it)
-                }
-                .subscribeOn(subscribeScheduler)
-                .observeOn(observeScheduler)
-                .subscribe{
-                    it.render(view)
-                }
-    }*/
 }
