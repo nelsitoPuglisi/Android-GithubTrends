@@ -32,6 +32,7 @@ class TrendingGithubRepoAdapter(val clickListener: (githubRepo: GithubRepo) -> U
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(githubRepo: GithubRepo, clickListener: (githubRepo: GithubRepo) -> Unit) {
             itemView.userAvatar.loadFromUrl(githubRepo.owner.avatar)
+            itemView.repoName.text = String.format("${githubRepo.owner.name}\\${githubRepo.name}")
             itemView.setOnClickListener {
                 clickListener(githubRepo)
             }

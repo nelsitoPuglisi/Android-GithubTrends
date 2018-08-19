@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="8dp"
+    android:background="@color/colorPrimaryDark"
     tools:context=".view.MainActivity">
 
     <android.support.v7.widget.RecyclerView
@@ -15,7 +17,8 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/repo_cell"/>
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -30,14 +33,15 @@
 
     <TextView
         android:id="@+id/errorMessage"
-        android:visibility="gone"
-        tools:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="There was an error"
+        android:visibility="gone"
+        app:fontFamily="sans-serif-condensed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="There was an error"
+        tools:visibility="visible"/>
 
 </android.support.constraint.ConstraintLayout>

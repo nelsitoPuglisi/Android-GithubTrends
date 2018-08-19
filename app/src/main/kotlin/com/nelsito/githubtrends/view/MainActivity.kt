@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.support.annotation.UiThread
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.nelsito.githubtrends.R
 import com.nelsito.githubtrends.data.GithubApi
@@ -25,7 +27,7 @@ class MainActivity : AppCompatActivity(), TrendingGithubListView {
             val intent  = DetailActivity.callingIntent(this@MainActivity, it)
             startActivity(intent)
         }
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
         TrendingGithubList(this, GithubApi()).load(Schedulers.io(), AndroidSchedulers.mainThread())
