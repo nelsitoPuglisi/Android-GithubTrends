@@ -1,6 +1,7 @@
 package com.nelsito.githubtrends.usecase
 
-class TrendingGithubListLoadingViewState : TrendingGithubListViewState {
+class TrendingGithubListLoadViewState : TrendingGithubListViewState {
+
     override fun render(view: TrendingGithubListView) {
         view.showLoading()
     }

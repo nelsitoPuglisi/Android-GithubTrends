@@ -1,26 +1,39 @@
 package com.nelsito.githubtrends.acceptance.stubs
 
-import com.nelsito.githubtrends.usecase.TrendingGithubListRepository
-import com.nelsito.githubtrends.usecase.TrendingGithubListView
+import com.nelsito.githubtrends.model.TrendingGithub
+import com.nelsito.githubtrends.usecase.*
 import io.reactivex.Observable
-import usecase.TrendingGithubList
+import io.reactivex.Scheduler
 
-class TrendingGithubListViewStub(repository: TrendingGithubListRepository) : TrendingGithubListView {
-    init {
-        TrendingGithubList(this, repository)
-    }
+class TrendingGithubListViewStub : TrendingGithubListView {
+
     override fun loadFirstPage(): Observable<Boolean> {
         return Observable.just(true)
     }
 
-    private var loading = ""
+    private var message = ""
+
+    override fun showItems(trendingGithub: TrendingGithub) {
+        message = "size: " + trendingGithub.size() + "\n" +
+                trendingGithub.repos.map {
+                    it.owner.name + "\\" + it.name + "\n"
+                }
+                .reduce {
+                    it, acc -> it + acc
+                }
+
+    }
 
     override fun showLoading() {
-        loading = "Loading!"
+        message = "Loading!"
+    }
+
+    override fun showError(it: Throwable) {
+        message = "There was an error"
     }
 
     fun assert(): String {
         return "Trending Github List Screen\n" +
-                loading
+                message
     }
 }

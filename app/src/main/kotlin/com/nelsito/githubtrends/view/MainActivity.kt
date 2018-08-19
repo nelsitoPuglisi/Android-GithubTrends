@@ -1,7 +1,8 @@
-package com.nelsito.githubtrends
+package com.nelsito.githubtrends.view
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.nelsito.githubtrends.R
 
 class MainActivity : AppCompatActivity() {
 

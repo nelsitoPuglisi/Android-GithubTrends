@@ -1,64 +1,42 @@
 package com.nelsito.githubtrends.acceptance
 
-import android.accounts.NetworkErrorException
 import com.nelsito.githubtrends.acceptance.stubs.TrendingGithubListViewStub
 import com.nelsito.githubtrends.model.GithubRepo
 import com.nelsito.githubtrends.model.GithubUser
 import com.nelsito.githubtrends.model.TrendingGithub
+import com.nelsito.githubtrends.usecase.TrendingGithubList
 import com.nelsito.githubtrends.usecase.TrendingGithubListRepository
 import io.reactivex.Observable
-import io.reactivex.Scheduler
-import io.reactivex.android.plugins.RxAndroidPlugins
-import io.reactivex.disposables.Disposable
-import io.reactivex.internal.schedulers.ExecutorScheduler
-import io.reactivex.plugins.RxJavaPlugins
+import io.reactivex.schedulers.TestScheduler
 import junit.framework.Assert.assertEquals
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.`when`
+import org.mockito.BDDMockito.given
 import org.mockito.Mockito.mock
-import java.util.concurrent.Executor
-import java.util.concurrent.TimeUnit
 
 class TrendingGithubTest {
 
-    val immediate = object : Scheduler() {
-        override fun scheduleDirect(run: Runnable,
-                                    delay: Long, unit: TimeUnit): Disposable {
-            return super.scheduleDirect(run, 0, unit)
-        }
-
-        override fun createWorker(): Scheduler.Worker {
-            return ExecutorScheduler.ExecutorWorker(
-                    Executor { it.run() })
-        }
-    }
+    private lateinit var testScheduler: TestScheduler
 
     @Before
     fun setup() {
-        RxJavaPlugins.setInitIoSchedulerHandler { immediate }
-        RxJavaPlugins.setInitComputationSchedulerHandler { immediate }
-        RxJavaPlugins.setInitNewThreadSchedulerHandler { immediate }
-        RxJavaPlugins.setInitSingleSchedulerHandler { immediate }
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler { immediate }
+        testScheduler = TestScheduler()
     }
 
-    @After
-    fun finally() {
-        RxJavaPlugins.reset()
-        RxAndroidPlugins.reset()
-    }
+    //la view tiene un viewState al que le tira un intent
+    //el viewState crea un caso de uso para el intent
+    //el caso de uso devuelve un nuevo viewState
+    //el nuevo view state se renderiza en la view
 
     @Test
     fun aUserOpenList_showsLoading() {
         // Given
         val repository = mock(TrendingGithubListRepository::class.java)
-        `when`(repository.load()).thenReturn(Observable.empty())
+        given(repository.load()).willReturn(Observable.empty())
+        var view = TrendingGithubListViewStub()
 
         // When
-        var view = TrendingGithubListViewStub(repository, immediate)
-
+        TrendingGithubList(view, repository).load(testScheduler, testScheduler)
         // Then
         val expected =
                 "Trending Github List Screen\n" +
@@ -69,15 +47,18 @@ class TrendingGithubTest {
 
     @Test
     fun aUserOpenList_showsItems_whenFinished() {
+
         // Given
         val repository = mock(TrendingGithubListRepository::class.java)
         val repos = listOf(
                 GithubRepo(GithubUser("userA", "userId1", ""), "repoA", "repoId1"),
                 GithubRepo(GithubUser("userB", "userId2", ""), "repoB", "repoId2"))
-        `when`(repository.load()).thenReturn(Observable.just(TrendingGithub(repos)))
+        given(repository.load()).willReturn(Observable.just(TrendingGithub(repos)))
+        var view = TrendingGithubListViewStub()
 
         // When
-        var view = TrendingGithubListViewStub(repository, immediate)
+        TrendingGithubList(view, repository).load(testScheduler, testScheduler)
+        testScheduler.triggerActions()
 
         // Then
         val expected =
@@ -87,18 +68,17 @@ class TrendingGithubTest {
                         "userB\\repoB\n"
 
         assertEquals(expected, view.assert())
-
     }
 
     @Test
     fun aUserOpenList_showsError() {
         // Given
         val repository = mock(TrendingGithubListRepository::class.java)
+        var view = TrendingGithubListViewStub()
 
         // When
-        `when`(repository.load()).thenReturn(Observable.error(NetworkErrorException()))
-
-        var view = TrendingGithubListViewStub(repository, immediate)
+        TrendingGithubList(view, repository).load(testScheduler, testScheduler)
+        testScheduler.triggerActions()
 
         // Then
         val expected =
@@ -106,6 +86,5 @@ class TrendingGithubTest {
                         "There was an error"
 
         assertEquals(expected, view.assert())
-
     }
 }
