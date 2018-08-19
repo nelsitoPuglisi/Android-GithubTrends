@@ -23,11 +23,6 @@ class TrendingGithubTest {
         testScheduler = TestScheduler()
     }
 
-    //la view tiene un viewState al que le tira un intent
-    //el viewState crea un caso de uso para el intent
-    //el caso de uso devuelve un nuevo viewState
-    //el nuevo view state se renderiza en la view
-
     @Test
     fun aUserOpenList_showsLoading() {
         // Given
