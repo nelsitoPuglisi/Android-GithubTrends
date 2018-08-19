@@ -4,5 +4,5 @@ import com.nelsito.githubtrends.model.GithubRepo
 import io.reactivex.Observable
 
 interface GithubRepoDetailRepository {
-    fun detail(): Observable<GithubRepo>
+    fun detail(githubRepo: GithubRepo): Observable<GithubRepo>
 }

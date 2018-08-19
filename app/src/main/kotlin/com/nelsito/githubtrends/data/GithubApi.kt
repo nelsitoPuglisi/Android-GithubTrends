@@ -1,5 +1,6 @@
 package com.nelsito.githubtrends.data
 
+import com.nelsito.githubtrends.data.dto.transform
 import com.nelsito.githubtrends.model.GithubRepo
 import com.nelsito.githubtrends.model.GithubUser
 import com.nelsito.githubtrends.usecase.GithubRepoDetailRepository
@@ -12,12 +13,18 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 class GithubApi : TrendingGithubListRepository, GithubRepoDetailRepository {
+    override fun detail(githubRepo: GithubRepo): Observable<GithubRepo> {
+        return service.getRepoDetail(githubRepo.owner.name, githubRepo.name)
+                .map {
+                    it.transform()
+                }
+    }
 
     override fun load(): Observable<List<GithubRepo>> {
         return service.getTrendingRepositories()
                 .map {
                     it.items.map {
-                        GithubRepo(GithubUser(it.owner.login, it.owner.id.toString(), it.owner.avatarUrl), it.name, it.id.toString())
+                        it.transform()
                     }
                 }
     }

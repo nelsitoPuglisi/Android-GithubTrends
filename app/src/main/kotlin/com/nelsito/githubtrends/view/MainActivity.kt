@@ -1,6 +1,7 @@
 package com.nelsito.githubtrends.view
 
 import android.os.Bundle
+import android.support.annotation.UiThread
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
@@ -35,11 +36,11 @@ class MainActivity : AppCompatActivity(), TrendingGithubListView {
     }
 
     override fun showItems(repos: List<GithubRepo>) {
-       runOnUiThread {
-           progressBar.visibility = View.GONE
-           adapter.setItems(repos)
-           recyclerView.visibility = View.VISIBLE
-       }
+        runOnUiThread {
+            progressBar.visibility = View.GONE
+            adapter.setItems(repos)
+            recyclerView.visibility = View.VISIBLE
+        }
     }
 
     override fun showError(it: Throwable) {

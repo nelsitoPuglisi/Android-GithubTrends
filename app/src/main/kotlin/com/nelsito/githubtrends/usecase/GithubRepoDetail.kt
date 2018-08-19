@@ -1,19 +1,20 @@
 package com.nelsito.githubtrends.usecase
 
+import com.nelsito.githubtrends.model.GithubRepo
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 
 class GithubRepoDetail(val view: GithubRepoDetailView, val repository: GithubRepoDetailRepository) {
-    fun load(subscribeSchedulers: Scheduler, observeScheduler: Scheduler) {
+    fun load(githubRepo: GithubRepo, subscribeSchedulers: Scheduler, observeScheduler: Scheduler) {
         Observable.just(GithubRepoDetailLoadViewState().render(view))
                 .concatMap {
-                    repository.detail()
+                    repository.detail(githubRepo)
                 }
                 .map {
                     GithubRepoDetailResultViewState(it).render(view)
                 }
                 .onErrorReturn {
-                    GithubRepoDetailViewState(it).render(view)
+                    GithubRepoDetailErrorViewState(it).render(view)
                 }
                 .subscribeOn(subscribeSchedulers)
                 .observeOn(observeScheduler)

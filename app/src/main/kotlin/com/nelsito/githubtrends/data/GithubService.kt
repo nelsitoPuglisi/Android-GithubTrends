@@ -1,5 +1,6 @@
 package com.nelsito.githubtrends.data
 
+import com.nelsito.githubtrends.data.dto.GithubRepoDetailResponse
 import com.nelsito.githubtrends.data.dto.TrendingGithubResponse
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -11,5 +12,5 @@ interface GithubService {
     fun getTrendingRepositories(): Observable<TrendingGithubResponse>
 
     @GET("repos/{user}/{repo}")
-    fun getRepoDetail(@Path("user") user: String, @Path("repo") repo: String): Observable<TrendingGithubResponse>
+    fun getRepoDetail(@Path("user") user: String, @Path("repo") repo: String): Observable<GithubRepoDetailResponse>
 }

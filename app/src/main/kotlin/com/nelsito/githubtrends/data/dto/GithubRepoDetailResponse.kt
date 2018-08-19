@@ -1,11 +1,9 @@
 package com.nelsito.githubtrends.data.dto
 
 import com.google.gson.annotations.SerializedName
-import com.nelsito.githubtrends.data.dto.License
-import com.nelsito.githubtrends.data.dto.Owner
 import com.nelsito.githubtrends.model.GithubRepo
 
-data class Item(
+data class GithubRepoDetailResponse(
         @SerializedName("id") val id: Int,
         @SerializedName("node_id") val nodeId: String,
         @SerializedName("name") val name: String,
@@ -59,7 +57,7 @@ data class Item(
         @SerializedName("ssh_url") val sshUrl: String,
         @SerializedName("clone_url") val cloneUrl: String,
         @SerializedName("svn_url") val svnUrl: String,
-        @SerializedName("homepage") val homepage: Any,
+        @SerializedName("homepage") val homepage: String,
         @SerializedName("size") val size: Int,
         @SerializedName("stargazers_count") val stargazersCount: Int,
         @SerializedName("watchers_count") val watchersCount: Int,
@@ -78,9 +76,10 @@ data class Item(
         @SerializedName("open_issues") val openIssues: Int,
         @SerializedName("watchers") val watchers: Int,
         @SerializedName("default_branch") val defaultBranch: String,
-        @SerializedName("score") val score: Int
+        @SerializedName("network_count") val networkCount: Int,
+        @SerializedName("subscribers_count") val subscribersCount: Int
 )
 
-fun Item.transform() : GithubRepo {
-    return GithubRepo(owner.transform(), name, id.toString(), "")
+fun GithubRepoDetailResponse.transform() : GithubRepo {
+    return GithubRepo(owner.transform(), name, id.toString(), description)
 }
