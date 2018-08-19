@@ -24,6 +24,10 @@ android {
     sourceSets.each {
         it.java.srcDirs += "src/$it.name/kotlin"
     }
+
+    androidExtensions {
+        experimental = true
+    }
 }
 
 dependencies {

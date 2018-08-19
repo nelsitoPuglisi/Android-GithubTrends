@@ -14,6 +14,22 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), TrendingGithubListView {
+
+    private lateinit var adapter: TrendingGithubRepoAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        adapter = TrendingGithubRepoAdapter {
+            val intent  = DetailActivity.callingIntent(this@MainActivity, it)
+            startActivity(intent)
+        }
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        recyclerView.adapter = adapter
+
+        TrendingGithubList(this, GithubApi()).load(Schedulers.io(), AndroidSchedulers.mainThread())
+    }
+
     override fun showLoading() {
         progressBar.visibility = View.VISIBLE
     }
@@ -30,17 +46,5 @@ class MainActivity : AppCompatActivity(), TrendingGithubListView {
         errorMessage.text = it.message
         errorMessage.visibility = View.VISIBLE
         progressBar.visibility = View.GONE
-    }
-
-    private lateinit var adapter: TrendingGithubRepoAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        adapter = TrendingGithubRepoAdapter()
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
-        recyclerView.adapter = adapter
-
-        TrendingGithubList(this, GithubApi()).load(Schedulers.io(), AndroidSchedulers.mainThread())
     }
 }

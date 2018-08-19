@@ -2,6 +2,7 @@ package com.nelsito.githubtrends.data
 
 import com.nelsito.githubtrends.model.GithubRepo
 import com.nelsito.githubtrends.model.GithubUser
+import com.nelsito.githubtrends.usecase.GithubRepoDetailRepository
 import com.nelsito.githubtrends.usecase.TrendingGithubListRepository
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
@@ -10,7 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class GithubApi : TrendingGithubListRepository {
+class GithubApi : TrendingGithubListRepository, GithubRepoDetailRepository {
 
     override fun load(): Observable<List<GithubRepo>> {
         return service.getTrendingRepositories()

@@ -11,7 +11,7 @@ import com.nelsito.githubtrends.R
 import com.nelsito.githubtrends.model.GithubRepo
 import kotlinx.android.synthetic.main.repo_cell.view.*
 
-class TrendingGithubRepoAdapter : RecyclerView.Adapter<TrendingGithubRepoAdapter.ViewHolder>() {
+class TrendingGithubRepoAdapter(val clickListener: (githubRepo: GithubRepo) -> Unit) : RecyclerView.Adapter<TrendingGithubRepoAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.repo_cell, parent, false))
@@ -22,16 +22,18 @@ class TrendingGithubRepoAdapter : RecyclerView.Adapter<TrendingGithubRepoAdapter
         return items.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position], clickListener)
+
     fun setItems(repos: List<GithubRepo>) {
         items = repos
         notifyDataSetChanged()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(githubRepo: GithubRepo) {
+        fun bind(githubRepo: GithubRepo, clickListener: (githubRepo: GithubRepo) -> Unit) {
             itemView.userAvatar.loadFromUrl(githubRepo.owner.avatar)
             itemView.setOnClickListener {
+                clickListener(githubRepo)
             }
         }
     }
