@@ -8,4 +8,5 @@ interface GithubRepoDetailView {
     fun hideLoading()
     fun showError(it: Throwable)
     fun description(description: String)
+    fun showCommitsCount(commits: Int)
 }

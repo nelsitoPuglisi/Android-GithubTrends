@@ -6,10 +6,18 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class GithubRepo(val owner: GithubUser, val name: String, val id: String, val description: String) : Parcelable {
+
+    private var commits = emptyList<Commit>()
+
+    fun setCommits(commits: List<Commit>) : GithubRepo {
+        this.commits = commits
+        return this
+    }
+
     fun render(view: GithubRepoDetailView) {
         view.loadAvatar(owner.avatar)
-        view.setName(name)
-        view.ownerName(owner.name)
+        view.setName(owner.name + "\\" + name)
         view.description(description)
+        view.showCommitsCount(commits.size)
     }
 }

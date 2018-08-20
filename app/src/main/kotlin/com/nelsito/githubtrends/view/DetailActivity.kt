@@ -2,9 +2,11 @@ package com.nelsito.githubtrends.view
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import android.graphics.Typeface
 import android.os.Bundle
-import android.support.annotation.UiThread
+import android.support.v7.app.AppCompatActivity
+import android.text.Html
+import android.text.style.StyleSpan
 import android.view.View
 import com.nelsito.githubtrends.R
 import com.nelsito.githubtrends.data.GithubApi
@@ -16,6 +18,12 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity(), GithubRepoDetailView {
+    override fun showCommitsCount(commits: Int) {
+        runOnUiThread {
+            commitsCount.text = Html.fromHtml(resources.getQuantityString(R.plurals.commits_count, commits, commits))
+            commitsCount.visibility = View.VISIBLE
+        }
+    }
 
     override fun description(description: String) {
         runOnUiThread {
