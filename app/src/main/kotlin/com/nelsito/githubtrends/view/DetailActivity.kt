@@ -16,11 +16,12 @@ import com.nelsito.githubtrends.usecase.GithubRepoDetailView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_detail.*
+import ru.noties.markwon.Markwon
 
 class DetailActivity : AppCompatActivity(), GithubRepoDetailView {
     override fun showReadMe(html: String) {
         runOnUiThread {
-            repoReadme.text = Html.fromHtml(html)
+            Markwon.setMarkdown(repoReadme, html)
         }
     }
 

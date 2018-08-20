@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
-    card_view:cardBackgroundColor="@color/colorPrimary"
     card_view:cardCornerRadius="4dp"
     card_view:cardElevation="4dp"
     xmlns:tools="http://schemas.android.com/tools">
@@ -26,7 +25,7 @@
             android:id="@+id/repoName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#FFF"
+            android:textColor="#24292e"
             tools:text="@tools:sample/full_names"
             />
 
