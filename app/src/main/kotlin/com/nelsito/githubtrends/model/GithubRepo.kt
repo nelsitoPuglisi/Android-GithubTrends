@@ -5,7 +5,7 @@ import com.nelsito.githubtrends.usecase.GithubRepoDetailView
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class GithubRepo(val owner: GithubUser, val name: String, val id: String, val description: String) : Parcelable {
+class GithubRepo(val owner: GithubUser, val name: String, val id: String, val description: String, val stars: Int = 0) : Parcelable {
 
     private var commits = emptyList<Commit>()
 

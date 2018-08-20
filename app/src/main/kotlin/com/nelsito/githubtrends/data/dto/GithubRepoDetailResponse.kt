@@ -81,5 +81,5 @@ data class GithubRepoDetailResponse(
 )
 
 fun GithubRepoDetailResponse.transform() : GithubRepo {
-    return GithubRepo(owner.transform(), name, id.toString(), description)
+    return GithubRepo(owner.transform(), name, id.toString(), description, stargazersCount)
 }

@@ -1,8 +1,6 @@
 package com.nelsito.githubtrends.data.dto
 
 import com.google.gson.annotations.SerializedName
-import com.nelsito.githubtrends.data.dto.License
-import com.nelsito.githubtrends.data.dto.Owner
 import com.nelsito.githubtrends.model.GithubRepo
 
 data class Item(
@@ -82,5 +80,5 @@ data class Item(
 )
 
 fun Item.transform() : GithubRepo {
-    return GithubRepo(owner.transform(), name, id.toString(), "")
+    return GithubRepo(owner.transform(), name, id.toString(), "", stargazersCount)
 }
