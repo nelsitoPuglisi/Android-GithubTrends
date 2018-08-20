@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Github Trends</string>
+    <plurals name="commits_count">
+        <item quantity="one"><b>%d</b> commit</item>
+        <item quantity="other"><b>%d</b> commits</item>
+    </plurals>
+    <plurals name="branches_count">
+        <item quantity="one"><b>%d</b> branch</item>
+        <item quantity="other"><b>%d</b> branches</item>
+    </plurals>
+    <plurals name="contributors_count">
+        <item quantity="one"><b>%d</b> contributor</item>
+        <item quantity="other"><b>%d</b> contributors</item>
+    </plurals>
 </resources>

@@ -39,9 +39,3 @@ class TrendingGithubRepoAdapter(val clickListener: (githubRepo: GithubRepo) -> U
         }
     }
 }
-
-fun ImageView.loadFromUrl(url: String) =
-        Glide.with(this.context.applicationContext)
-                .load(url)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(this)!!
