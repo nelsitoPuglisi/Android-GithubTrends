@@ -18,6 +18,12 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity(), GithubRepoDetailView {
+    override fun showReadMe(html: String) {
+        runOnUiThread {
+            repoReadme.text = Html.fromHtml(html)
+        }
+    }
+
     override fun showCommitsCount(commits: Int) {
         runOnUiThread {
             commitsCount.text = Html.fromHtml(resources.getQuantityString(R.plurals.commits_count, commits, commits))

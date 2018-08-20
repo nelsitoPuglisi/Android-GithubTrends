@@ -9,12 +9,21 @@ class GithubRepoDetail(val view: GithubRepoDetailView, val repository: GithubRep
         Observable.just(GithubRepoDetailLoadViewState().render(view))
                 .concatMap {
                     repository.detail(githubRepo)
+                    .map {
+                        GithubRepoDetailResultViewState(it).render(view)
+                    }
+                    .onErrorReturn {
+                        GithubRepoDetailErrorViewState(it).render(view)
+                    }
                 }
-                .map {
-                    GithubRepoDetailResultViewState(it).render(view)
-                }
-                .onErrorReturn {
-                    GithubRepoDetailErrorViewState(it).render(view)
+                .concatMap {
+                    repository.readme(githubRepo)
+                    .map {
+                        GithubRepoDetailReadmeViewState(it).render(view)
+                    }
+                    .onErrorReturn {
+                        GithubRepoDetailErrorViewState(it).render(view)
+                    }
                 }
                 .subscribeOn(subscribeSchedulers)
                 .observeOn(observeScheduler)

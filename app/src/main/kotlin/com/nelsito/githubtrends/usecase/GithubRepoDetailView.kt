@@ -9,4 +9,5 @@ interface GithubRepoDetailView {
     fun showError(it: Throwable)
     fun description(description: String)
     fun showCommitsCount(commits: Int)
+    fun showReadMe(html: String)
 }

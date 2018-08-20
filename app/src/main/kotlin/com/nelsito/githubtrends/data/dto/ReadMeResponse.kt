@@ -1,6 +1,7 @@
 package com.nelsito.githubtrends.data.dto
 
 import com.google.gson.annotations.SerializedName
+import com.nelsito.githubtrends.model.Readme
 
 data class ReadMeResponse(
         @SerializedName("name") val name: String,
