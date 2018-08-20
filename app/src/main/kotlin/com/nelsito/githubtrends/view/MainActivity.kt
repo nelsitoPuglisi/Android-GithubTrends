@@ -24,6 +24,11 @@ class MainActivity : AppCompatActivity(), TrendingGithubListView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         adapter = TrendingGithubRepoAdapter {
+
+            /*
+            Note: In case that a detail activity wasn't needed anymore, and is replace with, for example, a bottom sheet,
+            only change here and make the bottom sheet to implement `GithubRepoDetailView` and call `GithubRepoDetail.load()`
+             */
             val intent  = DetailActivity.callingIntent(this@MainActivity, it)
             startActivity(intent)
         }

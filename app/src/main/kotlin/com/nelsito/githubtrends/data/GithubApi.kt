@@ -44,6 +44,7 @@ class GithubApi : TrendingGithubListRepository, GithubRepoDetailRepository {
     }
 
     override fun load(): Observable<List<GithubRepo>> {
+        //TODO: join other requests like 'language:java' or 'topic:android'
         return service.getTrendingRepositories()
                 .map {
                     it.items.map {
